@@ -101,7 +101,7 @@
 
 import time
 Special_Symbol=['!','$', '@', '#', '%','?',',','.','+','-','*','/','~','<','>','°','^']
-User = {}
+User = {'Anna':{"Password":'Anna2025Anna!',"Phone number":'+4918186503828'},}
 
 def check_Password(password_variable):
     if len(password_variable) >= 6:
@@ -187,6 +187,8 @@ if option == "1":
         username = input("Please enter your Username: ")
         password = input("Please enter your Password: ")
         if login(username,password) == True:
+            print('\n')
+            print('--> Welcome to the Amazon Expense Tracker!')
             break
         else:
             count = count + 1
@@ -200,7 +202,6 @@ if option == "1":
         else:
             print("Please register again")
             exit()
-    print('Welcome to the Amazon Expense Tracker!')
 
 elif option == "2":
     print('Welcome to procedure of regester! Please choose a username, a password and enter your phone number' '\n'
@@ -217,7 +218,6 @@ elif option == "2":
     phone_number = input("Please enter your phone number: ")
     
     register(username, password, phone_number)
-    print(User)
 
 else:
     exit()
