@@ -99,9 +99,13 @@
 
 # Creat functions: to chek the Password, to check the phone number, to regestrate, and to login...
 
+import datetime
 import time
 Special_Symbol=['!','$', '@', '#', '%','?',',','.','+','-','*','/','~','<','>','°','^']
+digits = ['0','1','2','3','4','5','6','7','8','9']
+dot = '.'
 User = {'Anna':{"Password":'Anna2025Anna!',"Phone number":'+4918186503828'},}
+Purchase = {}
 
 def check_Password(password_variable):
     if len(password_variable) >= 6:
@@ -173,6 +177,79 @@ def login(name_variable,password_variable):
         print('Username does not exist')
         return False
 
+def check_Date(date_variable):
+    if (date_variable[2]=="/" and date_variable[5]=="/"):
+        new_type_date_variable = datetime.strptime(date_variable,"%m/%d/%Y")
+        new_date = new_type_date_variable.strftime("%m/%d/%Y")
+        return new_date
+    elif (date_variable[2]=="-" and date_variable[5]=="-"):
+        new_type_date_variable = datetime.strptime(date_variable,"%m-%d-%Y")
+        new_date = new_type_date_variable.strftime("%m/%d/%Y")
+        return new_date
+    else:
+        return print('Date has the wrong formate')
+        exit()
+
+def check_Item(item_variable):
+    if len(item_variable) >= 3:
+        return True
+    else:
+        return False
+
+def check_Cost(cost_variable):
+    #if (type(cost_variable) == float or type(cost_variable) == int): Why it  dont work???
+    for i in range(0,len(cost_variable)):
+        if cost_variable[i] in digits == True or cost_variable[i] in dot == True:
+            return True
+        else:
+            return False
+
+def check_Weight(weight_variable):
+    if dot in weight_variable == True:
+        for i in range(0,len(weight_variable)):
+            if weight_variable[i] in digits == True:
+                return True
+            else:
+                return False
+    else:
+        return False
+
+def check_Quantity(quantity_variable):
+    if dot in quantity_variable == True:
+        if len(quantity_variable) > 1:
+            for i in range(0,len(quantity_variable)):
+                if cost_variable[i] in digits == True:
+                    return True
+                else:
+                    False
+        elif len(quantity_variable) == 1:
+            if quantity_variable[0] != '0':
+                return True
+            else:
+                return False
+        else:
+            return False
+
+def enter_purchase(name_variable,date_variable,item_variable,cost_variable,weight_variable,quantity_variable):
+    if check_Item(item_variable) == True:
+        if  check_Cost(cost_variable) == True:
+            if check_Weight(weight_variable) == True:
+                if check_Quantity(quantity_variable) == True:
+                    Purchase[username] = {"Date":check_Date(date_variable),'Item':item_variable,'Cost':cost_variable,'Weight':weight_variable,'Quantity':quantity_variable}
+                    return True
+                else:
+                    print('Quantity formate error')
+                    return False
+            else:
+                print('Weight formate error')
+                return False
+        else:
+            print('Cost formate error')
+            return False
+    else:
+        print('Item formate error')
+        return False
+
 # From here on login/regester procedure
 
 print("Welcome to expense tracker")
@@ -186,10 +263,45 @@ if option == "1":
     while count <= 2:
         username = input("Please enter your Username: ")
         password = input("Please enter your Password: ")
-        if login(username,password) == True:
+        if login(username,password) == True: # or enter_purchase(username,date_variable,item_variable,cost_variable,weight_variable,quantity_variable) == True:
             print('\n')
             print('--> Welcome to the Amazon Expense Tracker!')
-            break
+            print('\n')
+            print('Your options are:')
+            print('1. Enter a purchase')
+            print('2. Generate a report')
+            print('3. Quit')
+            option_2 = input("Enter an option:")
+            if option_2 == '1': # or retry == True:
+                print('Please enter your purchase')
+                print('\n')
+                date_variable = input("Please enter the purchase date in formats: MM/DD/YYYY or MM-DD-YYYY: ")
+                item_variable = input("Please enter the name of purchase item in formats of at least 3 characters: ")
+                cost_variable = input("Please enter the purchase cost in formats of an integer or a float - including charges on delivery: ")
+                weight_variable = input("Please enter the purchase weight in formats of a float, and in kg: ")
+                quantity_variable = input("Please enter the purchase quantity in formats of an integer from 1 and above:")
+                if enter_purchase(username,date_variable,item_variable,cost_variable,weight_variable,quantity_variable) == True:
+                    print('Your purchase have been successfully stored')
+                else:
+                    print('\n')
+                    print('You have made a format error, please try again.')
+                    print('\n')
+                    print('1. try again')
+                    print('9. Quit')
+                    option_3 = input("Enter an option:")
+                    if option_3 == '1':
+                        retry = True
+                    elif option_3 == '9':
+                        exit()
+                    else:
+                        exit()
+                    
+            elif option_2 == '2':
+                fdmklfd
+            elif option_2 == '3':
+                exit()
+            else:
+                exit()
         else:
             count = count + 1
     else:
@@ -218,6 +330,5 @@ elif option == "2":
     phone_number = input("Please enter your phone number: ")
     
     register(username, password, phone_number)
-
 else:
     exit()
