@@ -197,9 +197,8 @@ def check_Item(item_variable):
         return False
 
 def check_Cost(cost_variable):
-    #if (type(cost_variable) == float or type(cost_variable) == int): Why it  dont work???
     for i in range(0,len(cost_variable)):
-        if cost_variable[i] in digits == True or cost_variable[i] in dot == True:
+        if (type(cost_variable) == float or type(cost_variable) == int):
             return True
         else:
             return False
@@ -263,7 +262,7 @@ if option == "1":
     while count <= 2:
         username = input("Please enter your Username: ")
         password = input("Please enter your Password: ")
-        if login(username,password) == True: # or enter_purchase(username,date_variable,item_variable,cost_variable,weight_variable,quantity_variable) == True:
+        if login(username,password) == True:
             print('\n')
             print('--> Welcome to the Amazon Expense Tracker!')
             print('\n')
@@ -277,7 +276,7 @@ if option == "1":
                 print('\n')
                 date_variable = input("Please enter the purchase date in formats: MM/DD/YYYY or MM-DD-YYYY: ")
                 item_variable = input("Please enter the name of purchase item in formats of at least 3 characters: ")
-                cost_variable = input("Please enter the purchase cost in formats of an integer or a float - including charges on delivery: ")
+                cost_variable = float(input("Please enter the purchase cost in formats of an integer or a float - including charges on delivery: "))
                 weight_variable = input("Please enter the purchase weight in formats of a float, and in kg: ")
                 quantity_variable = input("Please enter the purchase quantity in formats of an integer from 1 and above:")
                 if enter_purchase(username,date_variable,item_variable,cost_variable,weight_variable,quantity_variable) == True:
